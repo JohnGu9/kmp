@@ -16,7 +16,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_LIST_DIR)
 endif()
 
 set(kmp_src ${CMAKE_CURRENT_LIST_DIR}/kmp.c)
-add_library(kmp OBJECT ${kmp_src})
+add_library(kmp STATIC ${kmp_src})
 target_include_directories(kmp PUBLIC ${CMAKE_CURRENT_LIST_DIR})
 
 if(MSVC)
