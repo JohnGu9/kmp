@@ -7,8 +7,16 @@
 #include "kmp-config.h"
 #endif
 
+#ifndef KMP_SIZE_T
+#define KMP_SIZE_T size_t
+#endif
+
 #ifndef KMP_CHAR_T
 #define KMP_CHAR_T char
+#endif
+
+#ifndef KMP_AUTO
+#define KMP_AUTO 1
 #endif
 
 #ifdef __cplusplus
@@ -35,7 +43,14 @@ extern "C"
    */
   const KMP_CHAR_T *kmp_find_sub_string_ex(const KMP_CHAR_T *data /* not nullable */, const size_t size,
                                            const KMP_CHAR_T *pattern /* not nullable */, const size_t pattern_size,
-                                           size_t *kmp_table /* not nullable */, const size_t kmp_table_size);
+                                           KMP_SIZE_T *kmp_table /* not nullable */, const size_t kmp_table_size);
+
+#if KMP_AUTO == 1
+  const KMP_CHAR_T *find_sub_string(const KMP_CHAR_T *data /* not nullable */,
+                                    const size_t size,
+                                    const KMP_CHAR_T *pattern /* not nullable */,
+                                    const size_t pattern_size);
+#endif
 
 #ifdef __cplusplus
 }
