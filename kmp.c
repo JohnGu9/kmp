@@ -1,6 +1,6 @@
 #include "kmp.h"
 
-static size_t get_longest_prefix_suffix(const KMP_CHAR_T *pattern, size_t pattern_size)
+static size_t _get_longest_prefix_suffix(const KMP_CHAR_T *pattern, size_t pattern_size)
 {
   for (size_t i = 1; i < pattern_size; i++)
   {
@@ -16,17 +16,17 @@ static size_t get_longest_prefix_suffix(const KMP_CHAR_T *pattern, size_t patter
 #define MIN(a, b) (a) < (b) ? (a) : (b)
 #endif
 
-static void kmp_table_init(size_t *kmp_table, size_t kmp_table_size,
-                           const KMP_CHAR_T *pattern, size_t pattern_size)
+static void _kmp_table_init(size_t *kmp_table, size_t kmp_table_size,
+                            const KMP_CHAR_T *pattern, size_t pattern_size)
 {
   const size_t size = MIN(kmp_table_size, pattern_size);
   for (size_t i = 0; i < size; i++)
   {
-    kmp_table[i] = get_longest_prefix_suffix(pattern, i + 1);
+    kmp_table[i] = _get_longest_prefix_suffix(pattern, i + 1);
   }
 }
 
-static size_t get_first_diff_char_position(const KMP_CHAR_T *data, const KMP_CHAR_T *pattern, size_t pattern_size)
+static size_t _get_first_diff_char_position(const KMP_CHAR_T *data, const KMP_CHAR_T *pattern, size_t pattern_size)
 {
   for (size_t i = 0; i < pattern_size; i++)
   {
@@ -45,13 +45,13 @@ const KMP_CHAR_T *kmp_find_sub_string_ex(const KMP_CHAR_T *data, const size_t si
   if (pattern_size > 0 && pattern_size <= size)
   {
     // kmp algorithm
-    kmp_table_init(kmp_table, kmp_table_size, pattern, pattern_size);
+    _kmp_table_init(kmp_table, kmp_table_size, pattern, pattern_size);
 
     size_t compare_start = 0;
     for (size_t i = 0; i <= (size - pattern_size);)
     {
       size_t first_diff_char_position =
-          get_first_diff_char_position(data + i + compare_start, pattern + compare_start, pattern_size - compare_start) + compare_start;
+          _get_first_diff_char_position(data + i + compare_start, pattern + compare_start, pattern_size - compare_start) + compare_start;
       if (first_diff_char_position == pattern_size)
       {
         return data + i;
