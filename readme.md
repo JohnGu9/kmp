@@ -4,7 +4,7 @@ A [memory safe] / [for no '\0' end string with known size] / [pure C implement] 
 
 # Requirement
 
-string.h (for size_t/strncmp)
+string.h (for `size_t`/`memcmp()`)
 
 # Example
 
