@@ -4,7 +4,7 @@ static size_t _get_longest_prefix_suffix(const KMP_CHAR_T *pattern, size_t patte
 {
   for (size_t i = 1; i < pattern_size; i++)
   {
-    if (memcmp(pattern, pattern + i, pattern_size - i) == 0)
+    if (memcmp(pattern, pattern + i, sizeof(KMP_CHAR_T) * (pattern_size - i)) == 0)
     {
       return pattern_size - i;
     }
@@ -124,7 +124,7 @@ const KMP_CHAR_T *find_sub_string(const KMP_CHAR_T *data, const size_t size,
   {
     for (size_t i = 0; i <= (size - pattern_size); i++)
     {
-      if (memcmp(data + i, pattern, pattern_size) == 0)
+      if (memcmp(data + i, pattern, sizeof(KMP_CHAR_T) * pattern_size) == 0)
       {
         return data + i;
       }
